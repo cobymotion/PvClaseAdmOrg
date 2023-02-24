@@ -11,12 +11,10 @@ import modelo.OperacionesBaseDatos;
  */
 public class ListaProductos extends javax.swing.JDialog {
 
-    Frame parent;
     OperacionesBaseDatos bd; 
     
     public ListaProductos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.parent = parent; 
         initComponents();
         bd = new BaseDatosVirtual();
         cargaGrid(bd.todosProductos());
@@ -141,10 +139,11 @@ public class ListaProductos extends javax.swing.JDialog {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-        var actualizaVentana = new ActualizarProductos(parent,false); 
+        var actualizaVentana = new ActualizarProductos
+                           ((Frame) this.getParent(),true); 
         actualizaVentana.setLocationRelativeTo(this);
         actualizaVentana.setVisible(true);
-         this.dispose();
+        cargaGrid(bd.todosProductos());
     }//GEN-LAST:event_btnAgregarActionPerformed
 
 

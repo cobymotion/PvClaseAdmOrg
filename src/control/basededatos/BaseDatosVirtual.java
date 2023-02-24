@@ -1,23 +1,23 @@
 
 package control.basededatos;
 
+import control.archivos.ArchivoTexto;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.OperacionesBaseDatos;
 import modelo.Producto;
 
 public class BaseDatosVirtual implements OperacionesBaseDatos {
-
-    private static final List<Producto> dbProductos = 
-            new ArrayList<Producto>();
+    
     
     @Override
     public String[][] todosProductos() {
+        List<Producto> lista = ArchivoTexto.getProductos();
         String data[][] = new  
-            String[BaseDatosVirtual.dbProductos.size()][3]; 
+            String[lista.size()][3]; 
         
         int i = 0; 
-        for(Producto producto : BaseDatosVirtual.dbProductos){
+        for(Producto producto : lista){
             data[i][0] = producto.getCodigo(); 
             data[i][1] = producto.getDescripcion(); 
             data[i][2] = String.format("%.2f",
@@ -34,8 +34,9 @@ public class BaseDatosVirtual implements OperacionesBaseDatos {
 
     @Override
     public boolean agregarProducto(Producto producto) {
-        BaseDatosVirtual.dbProductos.add(producto); 
-        return true;
+        //BaseDatosVirtual.dbProductos.add(producto); 
+        boolean res = ArchivoTexto.agregarProducto(producto);
+        return res;
     }
 
     @Override

@@ -5,6 +5,7 @@
 package vista;
 
 import control.basededatos.BaseDatosVirtual;
+import javax.swing.JOptionPane;
 import modelo.OperacionesBaseDatos;
 import modelo.Producto;
 
@@ -220,8 +221,15 @@ public class ActualizarProductos extends javax.swing.JDialog {
         requestFocusInput(componentError); 
         if(componentError==0){
             Producto p = new Producto(codigo, descripcion, costo); 
-            db.agregarProducto(p); 
-            this.dispose();
+            boolean res = db.agregarProducto(p);
+            String msg = res?"Se grabo correctamente": 
+                             "Ocurrio un error gacho";
+            JOptionPane.showMessageDialog
+                  (this, msg, 
+                          "Informacion",
+                     JOptionPane.INFORMATION_MESSAGE);
+            System.out.println(p);
+            if(res) { this.dispose(); }
         }
         ///// AQUI VOY
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -243,3 +251,4 @@ public class ActualizarProductos extends javax.swing.JDialog {
     private javax.swing.JLabel lblErrorDescripcion;
     // End of variables declaration//GEN-END:variables
 }
+

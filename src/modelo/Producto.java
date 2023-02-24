@@ -11,6 +11,13 @@ public class Producto {
     private String descripcion; 
     private double costo; 
 
+    @Override
+    public String toString() {
+        return codigo + "#" + descripcion + "#" + costo + "#";
+    }
+    
+    
+
     public Producto(String codigo, String descripcion, double costo) {
         this.codigo = codigo;
         this.descripcion = descripcion;
