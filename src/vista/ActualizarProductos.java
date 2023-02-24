@@ -202,7 +202,10 @@ public class ActualizarProductos extends javax.swing.JDialog {
         String strCosto = jtCosto.getText();
         int componentError = 0; 
         if(strCosto.isEmpty()) {showErrorCost(1); componentError=3;}
-        if(descripcion.isEmpty()) {lblErrorDescripcion.setVisible(true);componentError=2;}        
+        if(descripcion.isEmpty()) {
+            lblErrorDescripcion.setVisible(true);
+            componentError=2;
+        }        
         if(codigo.isEmpty()) {lblErrorCodigo.setVisible(true); componentError=1;}        
         double costo = 0; 
         try {
@@ -215,9 +218,11 @@ public class ActualizarProductos extends javax.swing.JDialog {
         }
         
         requestFocusInput(componentError); 
-        Producto p = new Producto(codigo, descripcion, costo); 
-        db.agregarProducto(p); 
-        this.dispose();
+        if(componentError==0){
+            Producto p = new Producto(codigo, descripcion, costo); 
+            db.agregarProducto(p); 
+            this.dispose();
+        }
         ///// AQUI VOY
     }//GEN-LAST:event_btnGuardarActionPerformed
 

@@ -144,7 +144,7 @@ public class ListaProductos extends javax.swing.JDialog {
         var actualizaVentana = new ActualizarProductos(parent,false); 
         actualizaVentana.setLocationRelativeTo(this);
         actualizaVentana.setVisible(true);
-         
+         this.dispose();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
 
