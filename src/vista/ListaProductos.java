@@ -2,6 +2,7 @@ package vista;
 
 import control.basededatos.BaseDatosVirtual;
 import java.awt.Frame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.OperacionesBaseDatos;
 
@@ -93,6 +94,11 @@ public class ListaProductos extends javax.swing.JDialog {
 
         btnEditar.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -145,6 +151,17 @@ public class ListaProductos extends javax.swing.JDialog {
         actualizaVentana.setVisible(true);
         cargaGrid(bd.todosProductos());
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        int renglonSeleccionado = tbProductos.getSelectedRow();         
+        if(renglonSeleccionado>=0){
+            String code = tbProductos.getValueAt(renglonSeleccionado, 0).toString();            
+            JOptionPane.showMessageDialog(this, "Codigo " + code);
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecciono el producto a modificar");
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

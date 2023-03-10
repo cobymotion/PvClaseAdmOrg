@@ -2,7 +2,6 @@
 package control.basededatos;
 
 import control.archivos.ArchivoTexto;
-import java.util.ArrayList;
 import java.util.List;
 import modelo.OperacionesBaseDatos;
 import modelo.Producto;
@@ -18,8 +17,8 @@ public class BaseDatosVirtual implements OperacionesBaseDatos {
         
         int i = 0; 
         for(Producto producto : lista){
-            data[i][0] = producto.getCodigo(); 
-            data[i][1] = producto.getDescripcion(); 
+            data[i][0] = producto.getCodigo().trim(); 
+            data[i][1] = producto.getDescripcion().trim(); 
             data[i][2] = String.format("%.2f",
                                  producto.getCosto());
             i++;

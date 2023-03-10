@@ -55,12 +55,6 @@ public class ArchivoTexto {
     }
     
     
-    
-    
-    
-    
-    
-    
     /**
      * Metodo que permite grabar en el archivo 
      * los datos de los productos

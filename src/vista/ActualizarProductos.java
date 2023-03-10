@@ -110,11 +110,14 @@ public class ActualizarProductos extends javax.swing.JDialog {
         jtCodigo.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
 
         jtDescripcion.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        jtDescripcion.setNextFocusableComponent(jtCosto);
 
         jtCosto.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        jtCosto.setNextFocusableComponent(btnGuardar);
 
         btnGuardar.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         btnGuardar.setText("Guardar");
+        btnGuardar.setNextFocusableComponent(jtCodigo);
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
