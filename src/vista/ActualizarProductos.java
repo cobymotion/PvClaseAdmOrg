@@ -13,7 +13,7 @@ import modelo.Producto;
  *
  * @author luiscobian
  */
-public class ActualizarProductos extends javax.swing.JDialog {
+public abstract class ActualizarProductos extends javax.swing.JDialog {
 
     OperacionesBaseDatos db ; 
     /**
@@ -24,6 +24,16 @@ public class ActualizarProductos extends javax.swing.JDialog {
         initComponents();
         db = new BaseDatosVirtual();
         ocultarErrores(); 
+    }
+    
+    public void cargarDatos(Producto p){
+        jtCodigo.setText(p.getCodigo());
+        jtDescripcion.setText(p.getDescripcion());
+        jtCosto.setText("" + p.getCosto());
+    }
+    
+    public void acualizaTitulo(String titulo){
+        jlTitulo.setText(titulo);
     }
 
     /**
@@ -75,7 +85,7 @@ public class ActualizarProductos extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 255));
+        jPanel1.setBackground(new java.awt.Color(255, 0, 51));
 
         jlTitulo.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         jlTitulo.setForeground(new java.awt.Color(204, 204, 204));
@@ -224,7 +234,7 @@ public class ActualizarProductos extends javax.swing.JDialog {
         requestFocusInput(componentError); 
         if(componentError==0){
             Producto p = new Producto(codigo, descripcion, costo); 
-            boolean res = db.agregarProducto(p);
+            boolean res = procesarTarea(p);
             String msg = res?"Se grabo correctamente": 
                              "Ocurrio un error gacho";
             JOptionPane.showMessageDialog
@@ -237,7 +247,12 @@ public class ActualizarProductos extends javax.swing.JDialog {
         ///// AQUI VOY
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    /// provisional 
+    public abstract boolean procesarTarea(Producto p);
     
+    public void habilitarCodigo(boolean habilita){
+        jtCodigo.setEnabled(habilita);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;

@@ -40,7 +40,25 @@ public class BaseDatosVirtual implements OperacionesBaseDatos {
 
     @Override
     public boolean actualizarProducto(Producto producto) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Producto> listaDatos = ArchivoTexto.getProductos(); 
+        boolean res; 
+        Producto original = listaDatos.stream()
+                            .filter(x -> x.getCodigo()
+                                    .trim()
+                                    .equals(producto
+                                            .getCodigo().trim()))
+                            .findFirst()
+                            .orElse(null);
+        if(original!=null){             
+            original.setDescripcion(producto.getDescripcion());
+            original.setCosto(producto.getCosto());
+            System.out.println("Aqui voy a regenerar mi archivo");
+            res = ArchivoTexto.regenerarElArchivo(listaDatos);
+        }else {
+            System.out.println("No lo encontro");
+            res = false; 
+        }
+        return res;
     }
 
     @Override

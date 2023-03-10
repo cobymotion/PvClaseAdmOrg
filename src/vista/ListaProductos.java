@@ -5,6 +5,7 @@ import java.awt.Frame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.OperacionesBaseDatos;
+import modelo.Producto;
 
 /**
  *
@@ -145,8 +146,8 @@ public class ListaProductos extends javax.swing.JDialog {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-        var actualizaVentana = new ActualizarProductos
-                           ((Frame) this.getParent(),true); 
+        var actualizaVentana = new AgregaProducto
+                           ((Frame) this.getParent()); 
         actualizaVentana.setLocationRelativeTo(this);
         actualizaVentana.setVisible(true);
         cargaGrid(bd.todosProductos());
@@ -156,8 +157,26 @@ public class ListaProductos extends javax.swing.JDialog {
         // TODO add your handling code here:
         int renglonSeleccionado = tbProductos.getSelectedRow();         
         if(renglonSeleccionado>=0){
-            String code = tbProductos.getValueAt(renglonSeleccionado, 0).toString();            
-            JOptionPane.showMessageDialog(this, "Codigo " + code);
+            String codigo = tbProductos.getValueAt
+                      (renglonSeleccionado, 0).toString();            
+            String descripcion = tbProductos.getValueAt
+                       (renglonSeleccionado, 1).toString();         
+            String costo = tbProductos.getValueAt
+                       (renglonSeleccionado, 2).toString();         
+            
+            
+            double costoNumerico = Double.parseDouble(costo);
+            Producto p = new Producto(codigo,descripcion
+                              , costoNumerico);
+            
+            EditarProducto ed = new EditarProducto
+                       ((Frame)getParent(), p);
+            
+            ed.setLocationRelativeTo(this);
+            
+            ed.setVisible(true);
+            
+            cargaGrid(bd.todosProductos());
         } else {
             JOptionPane.showMessageDialog(this, "Selecciono el producto a modificar");
         }

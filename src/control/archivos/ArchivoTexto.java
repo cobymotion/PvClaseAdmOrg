@@ -85,6 +85,26 @@ public class ArchivoTexto {
                  
         return resultado; 
     }
+
+    public static boolean regenerarElArchivo(List<Producto> listaDatos) {
+        boolean resultado; 
+        File archivo = new File(nombreArchivo);
+        try {
+            FileWriter fw  = new FileWriter(archivo, false); 
+            PrintWriter pw = new PrintWriter(fw);
+            for(Producto p: listaDatos){
+                pw.println(p);
+            }
+            pw.flush();
+            pw.close();
+            fw.close();
+            resultado = true;
+        } catch (IOException e) {
+            System.out.println("No se pudo regenerar");
+            resultado =false; 
+        }
+        return resultado;
+    }
     
 }
 

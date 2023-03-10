@@ -1,2 +1,13 @@
-001#prueba#100.0#
-002#Prueba#900.0#
+001#Coca cola#100.0#
+
+
+
+002#Barritas#900.0#
+
+
+
+003#prueba2#100.0#
+
+
+
+004#chicles motita#100.0#
