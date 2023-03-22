@@ -24,7 +24,7 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        navegacionPanel.setBackground(new java.awt.Color(0, 153, 255));
+        navegacionPanel.setBackground(new java.awt.Color(0, 132, 158));
 
         logoEncabezado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imgs/shopping64.png"))); // NOI18N
 

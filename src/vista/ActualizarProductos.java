@@ -85,7 +85,7 @@ public abstract class ActualizarProductos extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 0, 51));
+        jPanel1.setBackground(new java.awt.Color(0, 132, 158));
 
         jlTitulo.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         jlTitulo.setForeground(new java.awt.Color(204, 204, 204));
