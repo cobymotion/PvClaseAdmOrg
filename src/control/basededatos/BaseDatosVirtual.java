@@ -82,7 +82,20 @@ public class BaseDatosVirtual implements OperacionesBaseDatos {
 
     @Override
     public Producto buscarProducto(String codigo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       return null;  
+    }
+    
+    public Producto buscarProductoVenta(String codigo)
+    {
+        List<Producto> listaDatos = ArchivoBinario
+                .getProductos(); 
+        Producto original = listaDatos.stream()
+                            .filter(x -> x.getCodigo()
+                    .trim()
+                    .equals(codigo.trim()))
+                            .findFirst()
+                            .orElse(null);
+        return original;
     }
 
     

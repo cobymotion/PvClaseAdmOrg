@@ -1,5 +1,7 @@
 package vista;
 
+import vista.venta.Venta;
+
 /**
  *
  * @author luiscobian
@@ -21,6 +23,7 @@ public class Principal extends javax.swing.JFrame {
         logoEncabezado = new javax.swing.JLabel();
         nombreTienda = new javax.swing.JLabel();
         btnProductos = new javax.swing.JButton();
+        btnVenta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -40,6 +43,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        btnVenta.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        btnVenta.setText("Venta");
+        btnVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVentaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout navegacionPanelLayout = new javax.swing.GroupLayout(navegacionPanel);
         navegacionPanel.setLayout(navegacionPanelLayout);
         navegacionPanelLayout.setHorizontalGroup(
@@ -51,9 +62,10 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(logoEncabezado))
                     .addGroup(navegacionPanelLayout.createSequentialGroup()
                         .addGap(39, 39, 39)
-                        .addGroup(navegacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnProductos)
-                            .addComponent(nombreTienda))))
+                        .addGroup(navegacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(nombreTienda)
+                            .addComponent(btnVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         navegacionPanelLayout.setVerticalGroup(
@@ -65,7 +77,9 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(nombreTienda)
                 .addGap(18, 18, 18)
                 .addComponent(btnProductos)
-                .addContainerGap(531, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnVenta)
+                .addContainerGap(484, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -92,10 +106,18 @@ public class Principal extends javax.swing.JFrame {
         vlista.setVisible(true);
     }//GEN-LAST:event_btnProductosActionPerformed
 
+    private void btnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaActionPerformed
+        // TODO add your handling code here:
+        Venta ventana = new Venta(this, true); 
+        ventana.setLocationRelativeTo(this);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnVentaActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnProductos;
+    private javax.swing.JButton btnVenta;
     private javax.swing.JLabel logoEncabezado;
     private javax.swing.JPanel navegacionPanel;
     private javax.swing.JLabel nombreTienda;
