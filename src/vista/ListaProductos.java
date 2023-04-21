@@ -84,6 +84,11 @@ public class ListaProductos extends javax.swing.JDialog {
         jtFiltro.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
 
         btnFiltro.setText("...");
+        btnFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltroActionPerformed(evt);
+            }
+        });
 
         btnAgregar.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
         btnAgregar.setText("Agregar");
@@ -181,6 +186,12 @@ public class ListaProductos extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Selecciono el producto a modificar");
         }
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltroActionPerformed
+        // TODO add your handling code here:
+        String filtro = jtFiltro.getText(); 
+        cargaGrid(bd.todosProductos(filtro));
+    }//GEN-LAST:event_btnFiltroActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,11 +1,13 @@
 
 package modelo;
 
+import java.io.Serializable;
+
 /**
  * Clases para guardar los datos de un producto en particular
  * @author luiscobian
  */
-public class Producto {
+public class Producto implements Serializable {
     
     private String codigo; 
     private String descripcion; 

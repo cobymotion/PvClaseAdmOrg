@@ -1,8 +1,10 @@
 
 package control.basededatos;
 
-import control.archivos.ArchivoTexto;
+import control.archivos.ArchivoBinario;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import modelo.OperacionesBaseDatos;
 import modelo.Producto;
 
@@ -10,37 +12,54 @@ public class BaseDatosVirtual implements OperacionesBaseDatos {
     
     
     @Override
-    public String[][] todosProductos() {
-        List<Producto> lista = ArchivoTexto.getProductos();
-        String data[][] = new  
-            String[lista.size()][3]; 
-        
+    public String[][] todosProductos() {        
+        return convertirAArreglo
+                (ArchivoBinario.getProductos()); 
+    }
+
+    private String[][] convertirAArreglo
+                              (List<Producto> listita){
+        String data[][] = new String[listita.size()][3];
         int i = 0; 
-        for(Producto producto : lista){
-            data[i][0] = producto.getCodigo().trim(); 
-            data[i][1] = producto.getDescripcion().trim(); 
-            data[i][2] = String.format("%.2f",
-                                 producto.getCosto());
+        for(Producto producto: listita){
+            data[i][0] = producto.getCodigo().trim();
+            data[i][1] = producto.getDescripcion(); 
+            data[i][2] = String.format("%.2f", 
+                           producto.getCosto());
             i++;
         }
         return data; 
     }
-
+    
     @Override
     public String[][] todosProductos(String filtro) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String filtro2 = filtro.toLowerCase(); 
+        List<Producto> productos = 
+                ArchivoBinario.getProductos();
+        Stream<Producto> streamFiltrado = 
+                productos.stream()
+                .filter(x -> x.getDescripcion()
+                        .toLowerCase()
+                        .contains(filtro2) || 
+                        x.getCodigo().toLowerCase()
+                                .contains(filtro2)); 
+        List<Producto> productosFiltrados = 
+                      streamFiltrado.collect
+                            (Collectors.toList());
+        return convertirAArreglo
+                            (productosFiltrados);
     }
 
     @Override
     public boolean agregarProducto(Producto producto) {
         //BaseDatosVirtual.dbProductos.add(producto); 
-        boolean res = ArchivoTexto.agregarProducto(producto);
+        boolean res = ArchivoBinario.agregarProducto(producto);
         return res;
     }
 
     @Override
     public boolean actualizarProducto(Producto producto) {
-        List<Producto> listaDatos = ArchivoTexto.getProductos(); 
+        List<Producto> listaDatos = ArchivoBinario.getProductos(); 
         boolean res; 
         Producto original = listaDatos.stream()
                             .filter(x -> x.getCodigo()
@@ -53,7 +72,7 @@ public class BaseDatosVirtual implements OperacionesBaseDatos {
             original.setDescripcion(producto.getDescripcion());
             original.setCosto(producto.getCosto());
             System.out.println("Aqui voy a regenerar mi archivo");
-            res = ArchivoTexto.regenerarElArchivo(listaDatos);
+            res = ArchivoBinario.regenerarElArchivo(listaDatos);
         }else {
             System.out.println("No lo encontro");
             res = false; 
