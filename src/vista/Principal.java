@@ -1,5 +1,6 @@
 package vista;
 
+import vista.reporte.ReporteForm;
 import vista.venta.Venta;
 
 /**
@@ -24,6 +25,7 @@ public class Principal extends javax.swing.JFrame {
         nombreTienda = new javax.swing.JLabel();
         btnProductos = new javax.swing.JButton();
         btnVenta = new javax.swing.JButton();
+        btnReporte = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,6 +53,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        btnReporte.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        btnReporte.setText("Reporte");
+        btnReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout navegacionPanelLayout = new javax.swing.GroupLayout(navegacionPanel);
         navegacionPanel.setLayout(navegacionPanelLayout);
         navegacionPanelLayout.setHorizontalGroup(
@@ -65,7 +75,8 @@ public class Principal extends javax.swing.JFrame {
                         .addGroup(navegacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(nombreTienda)
-                            .addComponent(btnVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnReporte, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         navegacionPanelLayout.setVerticalGroup(
@@ -79,7 +90,9 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(btnProductos)
                 .addGap(18, 18, 18)
                 .addComponent(btnVenta)
-                .addContainerGap(484, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnReporte)
+                .addContainerGap(437, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -104,6 +117,7 @@ public class Principal extends javax.swing.JFrame {
                                      (this,true);
         vlista.setLocationRelativeTo(this);
         vlista.setVisible(true);
+        System.out.println("Se mando llamar");
     }//GEN-LAST:event_btnProductosActionPerformed
 
     private void btnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaActionPerformed
@@ -113,10 +127,20 @@ public class Principal extends javax.swing.JFrame {
         ventana.setVisible(true);
     }//GEN-LAST:event_btnVentaActionPerformed
 
+    private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
+        // TODO add your handling code here:
+        System.out.println("Le presiono");
+        ReporteForm ventana = new 
+                    ReporteForm(this,true); 
+        ventana.setLocationRelativeTo(this);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnReporteActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnProductos;
+    private javax.swing.JButton btnReporte;
     private javax.swing.JButton btnVenta;
     private javax.swing.JLabel logoEncabezado;
     private javax.swing.JPanel navegacionPanel;

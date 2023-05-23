@@ -5,6 +5,10 @@
 package vista.venta;
 
 import control.basededatos.BaseDatosVirtual;
+import control.venta.OperacionesVenta;
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
+import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,6 +18,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Producto;
 import modelo.TablaDetalleViewModel;
+import modelo.VentaModelo;
+import util.ImprimirTicket;
 
 /**
  *
@@ -23,6 +29,8 @@ public class Venta extends javax.swing.JDialog {
 
     private List<TablaDetalleViewModel> detalle; 
     private BaseDatosVirtual bd; 
+    private int folio; 
+    private double total;
     
     /**
      * Creates new form Venta
@@ -34,22 +42,27 @@ public class Venta extends javax.swing.JDialog {
         detalle = new ArrayList<>();
         actualizarVenta(); 
         bd = new BaseDatosVirtual();
+        folio = bd.numeroVentas() + 1;
+        String folio = String.format("%03d",
+                                this.folio);
+        jlTicket.setText(folio);
     }
     
     private void actualizarVenta() {
         /// actualizacion 
         String[] columns = {"Cant", "Descripción"
-                            , "Precio", "Total"};
+                            , "Precio", "Total", "Codigo"};
         String[][] datos = extraerDatos(); 
         DefaultTableModel model = new 
             DefaultTableModel(datos, 
                     columns); 
         jtDetalle.setModel(model);
+        jtDetalle.removeColumn(jtDetalle.getColumnModel().getColumn(4));
     }
     
     private String[][] extraerDatos(){
         String[][] datos = new String
-                  [detalle.size()][4]; 
+                  [detalle.size()][5]; 
         int i=0; 
         double totalVenta = 0; 
         for(TablaDetalleViewModel elem : detalle){
@@ -61,11 +74,13 @@ public class Venta extends javax.swing.JDialog {
             datos[i][3] = String.format
                         ("%.2f",
                            elem.getTotal());
+            datos[i][4] = elem.getCodigo();
             i++;
             totalVenta +=elem.getTotal(); 
         }
         jlTotal.setText(String.format
                       ("$ %.2f", totalVenta));
+        total = totalVenta;
         return datos; 
     }
     
@@ -102,6 +117,8 @@ public class Venta extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         jlTotal = new javax.swing.JLabel();
         btnRegistrar = new javax.swing.JButton();
+        btnBorrar = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         jButton2.setText("jButton2");
 
@@ -154,6 +171,7 @@ public class Venta extends javax.swing.JDialog {
             }
         });
 
+        jtDetalle.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         jtDetalle.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -176,6 +194,20 @@ public class Venta extends javax.swing.JDialog {
 
         btnRegistrar.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
         btnRegistrar.setText("Registrar");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
+
+        btnBorrar.setText("borrar");
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Cantidad");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -202,10 +234,13 @@ public class Venta extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jlTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jlTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnBorrar)
+                            .addComponent(jButton3))
                         .addGap(12, 12, 12))))
         );
         layout.setVerticalGroup(
@@ -224,17 +259,19 @@ public class Venta extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(1, 1, 1)))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(214, 214, 214)
+                        .addComponent(btnBorrar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton3)
+                        .addGap(138, 138, 138)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jlTotal)
                         .addGap(18, 18, 18)
                         .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
 
@@ -251,23 +288,52 @@ public class Venta extends javax.swing.JDialog {
         hacerBusqueda();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+        // TODO add your handling code here:
+        int renglonSeleccionado = jtDetalle.getSelectedRow();         
+        if(renglonSeleccionado>=0){
+            String codigo = jtDetalle.getModel().getValueAt
+             (renglonSeleccionado, 4).toString(); 
+            var res = OperacionesVenta.borrar(detalle, codigo); 
+            if(res) actualizarVenta();
+        }
+    }//GEN-LAST:event_btnBorrarActionPerformed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        
+        VentaModelo venta = new VentaModelo();
+        venta.setFolio("" + folio);
+        venta.setFecha(Calendar.getInstance().getTime());
+        venta.setTotal(total);
+        venta.setDetalle(detalle);
+        
+        if(bd.guardarVenta(venta)){
+            System.out.println("Aqui esta imprimiendo.......");
+            ImprimirTicket imprimir = new ImprimirTicket(); 
+            imprimir.printTicket(venta);
+            // limpiando campos 
+            folio ++ ;
+            String folio = String.format("%03d", this.folio); 
+            jlTicket.setText(folio);
+            detalle = new ArrayList<>(); 
+            actualizarVenta();
+        }else 
+        {
+            JOptionPane.showMessageDialog(this, 
+                    "Ocurrio un error"); 
+        }
+        
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+    
+    
     private void hacerBusqueda() {
         String codigo = jtBuscar.getText(); 
         Producto productoDato = 
                 bd.buscarProductoVenta(codigo);
         if(productoDato!=null){        
-            TablaDetalleViewModel producto = 
-                    new TablaDetalleViewModel(); 
-            producto.setCodigo(
-                    productoDato.getCodigo());
-            producto.setCantidad(1);
-            producto.setPrecio(
-                     productoDato.getCosto());
-            producto.setDescripcion(
-               productoDato.getDescripcion());
-
-            detalle.add(producto); 
+            OperacionesVenta.agregar(detalle, productoDato);
             actualizarVenta();
+            jtBuscar.setText("");
         } else 
             JOptionPane.showMessageDialog(
                     this,
@@ -275,9 +341,11 @@ public class Venta extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;

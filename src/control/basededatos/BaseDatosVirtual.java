@@ -2,11 +2,13 @@
 package control.basededatos;
 
 import control.archivos.ArchivoBinario;
+import control.archivos.ArchivoXML;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import modelo.OperacionesBaseDatos;
 import modelo.Producto;
+import modelo.VentaModelo;
 
 public class BaseDatosVirtual implements OperacionesBaseDatos {
     
@@ -80,6 +82,7 @@ public class BaseDatosVirtual implements OperacionesBaseDatos {
         return res;
     }
 
+    //// NO OLVIDAR HACERLO 
     @Override
     public Producto buscarProducto(String codigo) {
        return null;  
@@ -99,5 +102,32 @@ public class BaseDatosVirtual implements OperacionesBaseDatos {
     }
 
     
+    /**
+     * metodo para guardar la venta
+     * @param venta
+     * @return 
+     */
+    public boolean guardarVenta(VentaModelo venta) {
+        boolean res = ArchivoXML.guardarVenta(venta); 
+        return res; 
+    }
+    
+    public int numeroVentas() {
+        return ArchivoXML.cantidadVentas();
+    }
+    
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
